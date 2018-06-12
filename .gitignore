@@ -22,3 +22,5 @@ ui
 eclipse
 run
 unload
+setupWorkspace.bat
+build.bat
