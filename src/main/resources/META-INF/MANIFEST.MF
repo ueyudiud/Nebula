@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+FMLCorePlugin: nebula.NebulaLoadingPlugin
+FMLCorePluginContainsFMLMod: true
+FMLAT: nebula_at.cfg

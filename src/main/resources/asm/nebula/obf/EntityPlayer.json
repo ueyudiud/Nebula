@@ -1,0 +1,27 @@
+{
+	"name": "net.minecraft.entity.player.EntityPlayer",
+	"modification": [
+		{
+			"name": "<init>|(Laid;Lcom/mojang/authlib/GameProfile;)V",
+			"labels": [
+				{
+					"type": "replace",
+					"owner": "abb",
+					"name": "<init>",
+					"desc": "()V",
+					"off": -2,
+					"len": 3,
+					"nodes": [
+						{
+							"opcode": 184,
+							"owner": "nebula/common/CommonOverride",
+							"name": "createFoodStats",
+							"desc": "()Labb;",
+							"itf": false
+						}
+					]
+				}
+			]
+		}
+	]
+}

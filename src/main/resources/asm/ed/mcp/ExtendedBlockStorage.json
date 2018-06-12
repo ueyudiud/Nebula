@@ -1,0 +1,40 @@
+{
+	"name": "net.minecraft.world.chunk.storage.ExtendedBlockStorage",
+	"modification": [
+		{
+			"name": "<init>|(IZ)V",
+			"labels": [
+				{
+					"type": "replace",
+					"owner": "net/minecraft/world/chunk/BlockStateContainer",
+					"name": "<init>",
+					"desc": "()V",
+					"off": -2,
+					"nodes": [
+						{
+							"opcode": 187,
+							"desc": "ed/chunk/BlockStateContainerExt"
+						}
+					]
+				},
+				{
+					"type": "replace",
+					"line": 29,
+					"owner": "net/minecraft/world/chunk/BlockStateContainer",
+					"name": "<init>",
+					"desc": "()V",
+					"off": 0,
+					"nodes": [
+						{
+							"opcode": 183,
+							"owner": "ed/chunk/BlockStateContainerExt",
+							"name": "<init>",
+							"desc": "()V",
+							"itf": false
+						}
+					]
+				}
+			]
+		}
+	]
+}

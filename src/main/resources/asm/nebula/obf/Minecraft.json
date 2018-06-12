@@ -1,0 +1,26 @@
+{
+	"name": "net.minecraft.client.Minecraft",
+	"modification": [
+		{
+			"name": "init|()V",
+			"labels": [
+				{
+					"type": "insert",
+					"owner": "net/minecraftforge/fml/client/FMLClientHandler",
+					"name": "beginMinecraftLoading",
+					"desc": "(Lbcx;Ljava/util/List;Lbxb;)V",
+					"off": 0,
+					"nodes": [
+						{
+							"opcode": 184,
+							"owner": "nebula/client/ClientOverride",
+							"name": "onMinecraftStartLoading",
+							"desc": "()V",
+							"itf": false
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,104 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+//Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
+
+file "build.properties" withReader {
+    def prop = new Properties()
+    prop.load(it)
+    ext.config = new ConfigSlurper().parse prop
+}
+
+version = "${config.nebula.version}"
+group= "com.ueyudiud.nebula"
+archivesBaseName = "Nebula"
+
+sourceCompatibility = targetCompatibility = "8" // Java 8 required.
+compileJava {
+    sourceCompatibility = targetCompatibility = "8"
+}
+
+repositories {
+	maven {
+		//JEI
+		url "http://dvs1.progwml6.com/files/maven"
+	}
+	
+	maven {
+		// HWYLA
+		url "http://tehnut.info/maven"
+	}
+}
+
+tasks.withType(JavaCompile) {  
+    options.encoding = "UTF-8"  
+}
+
+minecraft {
+    version = "1.10.2-12.18.3.2272"
+    runDir = "run"
+    
+    mappings = "stable_29"
+	
+    replace "@VERSION@", "${config.nebula.version}"
+}
+
+dependencies {
+	deobfCompile 'mezz.jei:jei_1.10.2:3.14.7.420'
+	deobfCompile 'mcp.mobius.waila:Hwyla:1.8.17-B31_1.10.2'
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+    
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+task deobfJar(type: Jar) {
+    from (sourceSets.main.output) {
+        exclude "**/debug/**"
+   	    exclude "**/farcore/**"
+    }
+	from (sourceSets.main.java) {
+		exclude "**/debug/**"
+   	    exclude "**/farcore/**"
+	}
+    classifier = 'dev'
+    manifest {
+        attributes 'FMLCorePlugin': 'nebula.NebulaLoadingPlugin' // NebulaLoadingPlugin defaulty path.
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+        attributes 'NebulaASM': 'true'
+        attributes 'FMLAT': 'nebula_at.cfg'
+    }
+}
+
+jar {
+    exclude "**/debug/**"
+    exclude "**/farcore/**"
+    manifest {
+        attributes 'FMLCorePlugin': 'nebula.NebulaLoadingPlugin' // NebulaLoadingPlugin defaulty path.
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+        attributes 'NebulaASM': 'true'
+        attributes 'FMLAT': 'nebula_at.cfg'
+    }
+}
+
+artifacts {
+	archives deobfJar
+}
